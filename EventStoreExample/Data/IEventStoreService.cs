@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EventStoreExample.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,6 @@ namespace EventStoreExample.Data
     {
         void AppendEvent(double amount);
         double GetAmount(Guid streamId);
-        List<EventModel> GetAllEvents();
+        EventResponse GetAllEvents();
     }
 }

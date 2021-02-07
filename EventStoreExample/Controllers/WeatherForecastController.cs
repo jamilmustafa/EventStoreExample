@@ -37,12 +37,6 @@ namespace EventStoreExample.Controllers
             })
             .ToArray();
         }
-        [HttpGet]
-        [Route("SayHello")]
-        public Object SayHello()
-        {
-            return new { Message = "Good Morning Pakistan!!" };
-        }
         
     }
 }

@@ -1,7 +1,9 @@
 ﻿using EventStoreExample.Data;
+using EventStoreExample.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 
 namespace EventStoreExample.Controllers
 {
@@ -9,7 +11,7 @@ namespace EventStoreExample.Controllers
     [Route("[controller]")]
     public class EventStoreController : Controller
     {
-        private readonly IEventStoreService eventStoreReposity;
+        private readonly IEventStoreService eventStoreService;
 
         private readonly ILogger<EventStoreController> _logger;
 
@@ -17,36 +19,29 @@ namespace EventStoreExample.Controllers
             IEventStoreService eventStoreReposity,
             ILogger<EventStoreController> logger)
         {
-            this.eventStoreReposity = eventStoreReposity;
+            this.eventStoreService = eventStoreReposity;
             _logger = logger;
         }
         [HttpPost]
         public IActionResult StoreEvent(double amount)
         {
-            eventStoreReposity.AppendEvent(amount);
+            eventStoreService.AppendEvent(amount);
             return Ok();
            
         }
         [HttpGet]
-        public IActionResult GetAmount(Guid streamId)
+        public double GetAmount(Guid streamId)
         {
-            var res = eventStoreReposity.GetAmount(streamId);
-            if (res != 0)
-            {
-                return Ok();
-            }
-            return BadRequest();
+            return eventStoreService.GetAmount(streamId);
+            
         }
         [HttpGet]
         [Route("AllEvents")]
-        public IActionResult GetAllEvents()
+        public EventResponse GetAllEvents()
         {
-            var res = eventStoreReposity.GetAllEvents();
-            if (res != null)
-            {
-                return Ok();
-            }
-            return BadRequest();
+            EventResponse response = eventStoreService.GetAllEvents();
+            return response;
+
         }
     }
 }

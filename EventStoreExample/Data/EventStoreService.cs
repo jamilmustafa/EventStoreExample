@@ -52,7 +52,7 @@ namespace EventStoreExample.Data
             }
             return result;
         }
-        public List<EventModel> GetAllEvents()
+        public EventResponse GetAllEvents()
         {
             List<EventModel> eventModels = new List<EventModel>();
             using (var stream = store._store.OpenStream(streamId, 0, int.MaxValue))
@@ -62,12 +62,16 @@ namespace EventStoreExample.Data
                     eventModels.Add(new EventModel
                     {
                         Amount = item.Body.Amount,
-                        StreamId = streamId
-
+                        StreamId = streamId,
+                        Id=item.Body.EventId
+                        
                     });
                 }
             }
-            return eventModels;
+            return new EventResponse { 
+                 EventModels=eventModels,
+                 StreamId=streamId
+            };
         }
     }
 }
