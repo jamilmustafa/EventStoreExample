@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace EventStoreExample.Controllers
 {
@@ -18,13 +17,16 @@ namespace EventStoreExample.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(
+
+            ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [Route("GetData")]
+        public IEnumerable<WeatherForecast> GetData()
         {
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
@@ -35,5 +37,12 @@ namespace EventStoreExample.Controllers
             })
             .ToArray();
         }
+        [HttpGet]
+        [Route("SayHello")]
+        public Object SayHello()
+        {
+            return new { Message = "Good Morning Pakistan!!" };
+        }
+        
     }
 }

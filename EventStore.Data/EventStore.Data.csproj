@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+
+	  <ProjectReference Include="..\EventStore.Core\EventStore.Core.csproj" />
+	  <PackageReference Include="NEventStore" Version="8.0.0" />
+    <PackageReference Include="NEventStore.Persistence.Sql" Version="8.0.0" />
+    <PackageReference Include="NEventStore.Serialization.Json" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>
